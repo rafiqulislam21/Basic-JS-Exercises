@@ -61,20 +61,17 @@ HINT: Use substring()
  --------------------------- */
 
 function rotate_string(text) {
-  /*console.log(text);
+  console.log(text);
   for(var i = 0; i < text.length; i++){
-      for(var j = text.length; j > 0; j--){
-          var first = text[0];
-          var last = text[text.length-1];
-
-    }
-  }*/
+      text = text[text.length-1]+text.substring(0,text.length-1);
+      console.log(text);
+  }
 }
 
 console.log("Rotate String:");
 /* Uncomment the following to check */
   rotate_string("cat");
-  //rotate_string("pseudonym")
+  rotate_string("pseudonym")
 
 
 /* ---------------------------
@@ -92,13 +89,21 @@ HINT: Use split() and substring()
  --------------------------- */
 
 function protect_email(email) {
-  return "protected email";
+
+var part1, part2, splited, mid;
+  splited = email.split("@");
+  part1 = splited[0];
+  mid = part1.length / 2;
+  part1 = part1.substring(0, (part1.length - mid));
+  part2 = splited[1];
+
+  return part1 + "....@" + part2;
 }
 
 console.log("Protected email:");
 /* Uncomment the following to check */
-  //console.log(protect_email("harry_potter@gmail.com"));
-  //console.log(protect_email("sarah.connor@gmail.com"));
+  console.log(protect_email("harry_potter@gmail.com"));
+  console.log(protect_email("sarah.connor@gmail.com"));
 
 
 /* ---------------------------
@@ -116,13 +121,15 @@ HINT: Use indexOf() and slice()
  --------------------------- */
 
 function remove_first_occurrence(text, searchstring) {
-  return "edited text";
+  var index = text.indexOf(searchstring);
+  //console.log(index);
+  return text.slice(0 , index) + text.slice(index+searchstring.length, text.length);
 }
 
 console.log("Remove First Occurrence:");
 /* Uncomment the following to check */
-  //console.log(remove_first_occurrence("The quick brown fox jumps over the lazy dog", 'the'));
-  //console.log(remove_first_occurrence("Drastic times call for drastic measures", 'drastic'));
+  console.log(remove_first_occurrence("The quick brown fox jumps over the lazy dog", 'the'));
+  console.log(remove_first_occurrence("Drastic times call for drastic measures", 'drastic'));
 
 
 /* ---------------------------
@@ -140,14 +147,20 @@ HINT: Use join(), split() and sort() functions
  --------------------------- */
 
 function alphabetic_order(word) {
-  return "rearranged word";
+    var arr , splited ,sorted;
+
+      arr = word.split("");
+      arr.sort();
+      sorted=arr.join("");
+
+  return sorted;
 }
 
 console.log("Alphabetic Order:");
 /* Uncomment the following to check */
-  // console.log(alphabetic_order("textbook"));
-  // console.log(alphabetic_order("webmaster"));
-  // console.log(alphabetic_order("supercalifragilisticexpialidocious"));
+   console.log(alphabetic_order("textbook"));
+   console.log(alphabetic_order("webmaster"));
+   console.log(alphabetic_order("supercalifragilisticexpialidocious"));
 
 
 /* ---------------------------
@@ -163,13 +176,33 @@ c occurs 5 times
  --------------------------- */
 
 function most_frequent(arr) {
+
+var mf = 1;
+var m = 0;
+var item;
+for (var i=0; i<arr.length; i++)
+{
+        for (var j=i; j<arr.length; j++)
+        {
+                if (arr[i] == arr[j])
+                 m++;
+                if (mf<m)
+                {
+                  mf=m; 
+                  item = arr[i];
+                }
+         }
+         m=0;
+       }
+
   console.log("Most frequently occuring item in arr");
+  console.log(item+" ( " +mf +" times ) ") ;
 }
 
 console.log("Most Frequent Item:");
 /* Uncomment the following to check */
-  // most_frequent([3, 'c', 'c', 'c', 2, 3, 'c', 3, 'c', 2, 4, 9, 3]);
-  // most_frequent([7, 2, 'ax', '9', 9, 'ax', 'ax']);
+  most_frequent([3, 'c', 'c', 'c', 2, 3, 'c', 3, 'c', 2, 4, 9, 3]);
+  most_frequent([7, 2, 'ax', '9', 9, 'ax', 'ax']);
 
 
 /* ---------------------------
@@ -186,12 +219,22 @@ Output:
 
 function remove_duplicates(arr) {
   console.log("Duplicates removed from array");
-}
+    var x, len=arr.length, out=[], obj={};
+ 
+  for (x=0; x<len; x++) {
+    obj[arr[x]]=0;
+  }
+  for (x in obj) {
+    out.push(x);
+  }
+  console.log(out);
+
+   }
 
 console.log("Remove Duplicate Values:");
 /* Uncomment the following to check */
-  // remove_duplicates([3, 'a', 'a', 'a', 2, 3, 'a', 3, 'a', 2, 4, 9, 3]);
-  // remove_duplicates([4, 4, 4, 5, 's', 8, 's']);
+   remove_duplicates([3, 'a', 'a', 'a', 2, 3, 'a', 3, 'a', 2, 4, 9, 3]);
+   remove_duplicates([4, 4, 4, 5, 's', 8, 's']);
 
 
 /* ---------------------------
@@ -208,14 +251,30 @@ Output:
 
 function dash_in_even(number) {
   console.log("even numbers separated by dashes");
+    var num=number;
+    var str = num.toString();
+    var result = [str[0]];
+      
+    for(var x=1; x<str.length; x++)
+      {
+        if((str[x-1]%2 === 0)&&(str[x]%2 === 0))
+         {
+          result.push('-', str[x]);
+         }
+        else
+         {
+          result.push(str[x]);
+         }
+      }
+    console.log(result.join(''));
 }
 
 console.log("Dash between Even Numbers:");
 /* Uncomment the following to check */
-  // dash_in_even(100);
-  // dash_in_even(1356);
-  // dash_in_even(246824);
-  // dash_in_even(1324567824);
+   dash_in_even(100);
+   dash_in_even(1356);
+   dash_in_even(246824);
+   dash_in_even(1324567824);
 
 
 /* ---------------------------
@@ -231,10 +290,26 @@ HINT: Use Math.ceil() and Math.random()
 function guessing_game(guess) {
   // Get a random integer from 1 to 10 inclusive
   console.log("matched or unmatched?");
+    var match, num;
+ 
+      num = Math.random() * 100;  
+      num = Math.ceil(num);  
+      num = (num % 10) + 1; 
+      console.log("When guess = " + guess + ", num = " + num);
+ 
+    if(guess === num)
+    {
+      console.log("Good Work");
+    }
+
+    else
+    {
+      console.log("Not matched");
+    }
 }
 
 console.log("Guessing Game:");
 /* Uncomment the following to check */
-  // var guess = prompt('Guess the number between 1 and 10 inclusive');
-  // console.log("User guessed: "+ guess);
-  // guessing_game(guess);
+   var guess = prompt('Guess the number between 1 and 10 inclusive');
+   console.log("User guessed: "+ guess);
+   guessing_game(guess);
